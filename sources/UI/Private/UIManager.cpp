@@ -2,9 +2,9 @@
 
 #include <UI/Public/BaseUI.h>
 
-void UIManager::Destroy(BaseUI* BaseUIRef)
+void UIManager::Destroy(const BaseUI* BaseUIRef)
 {
-	auto ToDestroy = std::find(UIList.begin(), UIList.end(), BaseUIRef);
+	/*auto ToDestroy = std::find(UIList.begin(), UIList.end(), BaseUIRef);
 	if (ToDestroy != UIList.end())
 	{
 		ToDestroy->get()->RemoveFromParent();
@@ -13,5 +13,5 @@ void UIManager::Destroy(BaseUI* BaseUIRef)
 	else
 	{
 		// Handle the case where the UI element was not found
-	}
+	}*/
 }

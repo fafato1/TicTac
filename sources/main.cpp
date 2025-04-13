@@ -1,18 +1,18 @@
 #include "raylib.h"
-
+#include <UI/Public/UIManager.h>
+#include <UI/Screens/Public/GameScreen.h>
 
 #include "lib/resource_dir.h"	// utility header for SearchAndSetResourceDir
 
-typedef enum GameScreen { LOGO = 0, TITLE, GAMEPLAY, ENDING } GameScreen;
+typedef enum GameScreens { LOGO = 0, TITLE, GAMEPLAY, ENDING } GameScreens;
 
-// Config - Default values
 const Color LineColor = WHITE;
-const int LineTickness = 10;
-const float BorderOffset = 300.f;
-const float LineOffset = 100.f;
 
 int main()
 {
+  UIManager* UIManagerInstance = new UIManager();
+
+	GameScreen* TicTacScreen = UIManagerInstance->Create<GameScreen>();
 	// Tell the window to use vsync and work on high DPI displays
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI | FLAG_BORDERLESS_WINDOWED_MODE);
 
@@ -26,7 +26,6 @@ int main()
 		Vector2(ScreenCenter.x - 150.f, ScreenCenter.y + 50.f), Vector2(ScreenCenter.x + 50.f, ScreenCenter.y + 50.f), Vector2(ScreenCenter.x + 250.f, ScreenCenter.y + 50.f) ,
 		Vector2(ScreenCenter.x - 150.f, ScreenCenter.y + 250.f), Vector2(ScreenCenter.x + 50.f, ScreenCenter.y + 250.f), Vector2(ScreenCenter.x + 250.f, ScreenCenter.y + 250.f)
 	};
-
 
 
 
@@ -48,7 +47,7 @@ int main()
 	// Utility function from resource_dir.h to find the resources folder and set it as the current working directory so we can load from it
 	SearchAndSetResourceDir("resources");
 
-	GameScreen currentScreen = LOGO;
+	GameScreens currentScreen = LOGO;
 
 	Vector2 MousePosition = Vector2(0, 0);
 
@@ -59,7 +58,7 @@ int main()
 
 	int framesCounter = 0;
 	// game loop
-	while (!WindowShouldClose())		// run the loop untill the user presses ESCAPE or presses the Close button on the window
+	while (!WindowShouldClose())		// run the loop until the user presses ESCAPE or presses the Close button on the window
 	{
 		// drawing
 		BeginDrawing();
@@ -141,15 +140,7 @@ int main()
 		case GAMEPLAY:
 		{
 			// TODO: Draw GAMEPLAY screen here!
-
-
-			DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), BLACK);
-			DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
-
-
-			// Borders
-			// New Border Implementation
-			DrawRectangleLinesEx(Rectangle(ScreenCenter.x - BorderOffset, ScreenCenter.y - BorderOffset, 600, 600), 10, WHITE);
+			TicTacScreen->SetupScreen();
 
 
 			for (int i = 0; i < 9; i++)
@@ -165,12 +156,6 @@ int main()
 			if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) MousePosition = GetMousePosition();
 			DrawText(TextFormat("%2f X | %2f Y", MousePosition.x, MousePosition.y), 20, 80, 40, LineColor);
 
-
-
-			DrawLineEx(Vector2(ScreenCenter.x - LineOffset, ScreenCenter.y - BorderOffset), Vector2(ScreenCenter.x - LineOffset, ScreenCenter.y + BorderOffset), LineTickness, LineColor); // First Vertical Line
-			DrawLineEx(Vector2(ScreenCenter.x + LineOffset, ScreenCenter.y - BorderOffset), Vector2(ScreenCenter.x + LineOffset, ScreenCenter.y + BorderOffset), LineTickness, LineColor); // Second Vertical Line
-			DrawLineEx(Vector2(ScreenCenter.x - BorderOffset, ScreenCenter.y - LineOffset), Vector2(ScreenCenter.x + BorderOffset, ScreenCenter.y - LineOffset), LineTickness, LineColor); // First Horizontal Line
-			DrawLineEx(Vector2(ScreenCenter.x - BorderOffset, ScreenCenter.y + LineOffset), Vector2(ScreenCenter.x + BorderOffset, ScreenCenter.y + LineOffset), LineTickness, LineColor); // Second Horizontal Line
 
 		} break;
 		case ENDING:
