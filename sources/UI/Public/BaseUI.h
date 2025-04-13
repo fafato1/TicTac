@@ -1,5 +1,5 @@
 #pragma once
-#include <memory>
+#include <raylib.h>
 
 class UIManager; // Forward declaration
 
@@ -8,16 +8,20 @@ class BaseUI
 public:
 
 	BaseUI(UIManager* UIManager);
-	~BaseUI() = default;
 
-	
+	virtual ~BaseUI() = default;
+
 	virtual void OnUpdate(float DeltaTime) = 0;
 
-	virtual void OnCreate();
+	virtual void OnCreate() = 0;
+
+	virtual void SetupScreen() = 0;
 
 	void RemoveFromParent();
 
 	virtual void OnDestroy();
+
+	Vector2 GetScreenCenter();
 
 private:
 
