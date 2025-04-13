@@ -6,3 +6,5 @@ bin/
 build/
 out/
 CMakeSettings.json
+cmake-build-release/
+/.clang-tidy
