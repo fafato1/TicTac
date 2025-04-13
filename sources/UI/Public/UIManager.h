@@ -10,7 +10,7 @@ public:
 
 	void OnUpdate(float DeltaTime);
 
-	void Destroy(BaseUI* BaseUIRef);
+	void Destroy(const BaseUI* BaseUIRef);
 
 	template<typename T>
 	T* Create()
