@@ -1,5 +1,4 @@
 #include <UI/Public/BaseUI.h>
-#include <UI/Public/UIManager.h>
 
 BaseUI::BaseUI(UIManager* UIManager)
 {
@@ -19,4 +18,8 @@ void BaseUI::OnCreate()
 void BaseUI::OnDestroy()
 {
 	// Cleanup code here
+}
+
+Vector2 BaseUI::GetScreenCenter()  {
+	return { GetScreenWidth() / 2.f, GetScreenHeight() / 2.f };
 }
