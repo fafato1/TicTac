@@ -1,10 +1,16 @@
 #include <UI/Public/UIManager.h>
-
 #include <UI/Public/BaseUI.h>
+#include <algorithm>
+#include <iostream>
 
-void UIManager::Destroy(const BaseUI* BaseUIRef)
+
+void UIManager::Destroy(BaseUI* BaseUIRef)
 {
-	/*auto ToDestroy = std::find(UIList.begin(), UIList.end(), BaseUIRef);
+	const std::ranges::borrowed_iterator_t<std::vector<std::shared_ptr<BaseUI> > &> ToDestroy = std::ranges::find_if(UIList,
+		[BaseUIRef](const std::shared_ptr<BaseUI> &ptr)
+		{
+			return ptr.get() == BaseUIRef;
+		});
 	if (ToDestroy != UIList.end())
 	{
 		ToDestroy->get()->RemoveFromParent();
@@ -12,6 +18,6 @@ void UIManager::Destroy(const BaseUI* BaseUIRef)
 	}
 	else
 	{
-		// Handle the case where the UI element was not found
-	}*/
+		std::cout<< "";
+	}
 }

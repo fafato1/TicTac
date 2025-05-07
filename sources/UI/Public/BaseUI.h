@@ -1,5 +1,4 @@
 #pragma once
-#include <raylib.h>
 
 class UIManager; // Forward declaration
 
@@ -7,7 +6,7 @@ class BaseUI
 {
 public:
 
-	BaseUI(UIManager* UIManager);
+	explicit BaseUI(UIManager* UIManager);
 
 	virtual ~BaseUI() = default;
 
@@ -17,11 +16,9 @@ public:
 
 	virtual void SetupScreen() = 0;
 
-	void RemoveFromParent();
+	void RemoveFromParent() const;
 
 	virtual void OnDestroy();
-
-	Vector2 GetScreenCenter();
 
 private:
 

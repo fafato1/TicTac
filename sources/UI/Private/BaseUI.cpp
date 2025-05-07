@@ -5,9 +5,9 @@ BaseUI::BaseUI(UIManager* UIManager)
 	AUIManager = UIManager;
 }
 
-void BaseUI::RemoveFromParent()
+void BaseUI::RemoveFromParent() const
 {
-
+	delete this;
 }
 
 void BaseUI::OnCreate()
@@ -20,6 +20,4 @@ void BaseUI::OnDestroy()
 	// Cleanup code here
 }
 
-Vector2 BaseUI::GetScreenCenter()  {
-	return { GetScreenWidth() / 2.f, GetScreenHeight() / 2.f };
-}
+

@@ -10,9 +10,10 @@ const Color LineColor = WHITE;
 
 int main()
 {
-  UIManager* UIManagerInstance = new UIManager();
+	UIManager* UIManagerInstance = new UIManager();
 
 	GameScreen* TicTacScreen = UIManagerInstance->Create<GameScreen>();
+
 	// Tell the window to use vsync and work on high DPI displays
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI | FLAG_BORDERLESS_WINDOWED_MODE);
 
@@ -22,27 +23,14 @@ int main()
 	const Vector2 ScreenCenter = { GetScreenWidth() / 2.f, GetScreenHeight() / 2.f };
 
 	const Vector2 ButtonsPosition[9] = {
-		Vector2(ScreenCenter.x - 150.f, ScreenCenter.y - 150.f), Vector2(ScreenCenter.x + 50.f, ScreenCenter.y - 150.f), Vector2(ScreenCenter.x + 250.f, ScreenCenter.y - 150.f),
-		Vector2(ScreenCenter.x - 150.f, ScreenCenter.y + 50.f), Vector2(ScreenCenter.x + 50.f, ScreenCenter.y + 50.f), Vector2(ScreenCenter.x + 250.f, ScreenCenter.y + 50.f) ,
-		Vector2(ScreenCenter.x - 150.f, ScreenCenter.y + 250.f), Vector2(ScreenCenter.x + 50.f, ScreenCenter.y + 250.f), Vector2(ScreenCenter.x + 250.f, ScreenCenter.y + 250.f)
+		Vector2(ScreenCenter.x - 150.f, ScreenCenter.y - 150.f), Vector2(ScreenCenter.x + 50.f, ScreenCenter.y - 150.f),
+		Vector2(ScreenCenter.x + 250.f, ScreenCenter.y - 150.f),
+		Vector2(ScreenCenter.x - 150.f, ScreenCenter.y + 50.f), Vector2(ScreenCenter.x + 50.f, ScreenCenter.y + 50.f),
+		Vector2(ScreenCenter.x + 250.f, ScreenCenter.y + 50.f),
+		Vector2(ScreenCenter.x - 150.f, ScreenCenter.y + 250.f), Vector2(ScreenCenter.x + 50.f, ScreenCenter.y + 250.f),
+		Vector2(ScreenCenter.x + 250.f, ScreenCenter.y + 250.f)
 	};
 
-
-
-	enum Players
-	{
-		Player1,
-		Player2
-	};
-
-	struct gameData
-	{
-		bool IsMarked[9] = { false };
-		Players CurrentPlayer = Player1;
-		Players WhoMarked[9] = { };
-	};
-
-	gameData GameData;
 
 	// Utility function from resource_dir.h to find the resources folder and set it as the current working directory so we can load from it
 	SearchAndSetResourceDir("resources");
@@ -118,7 +106,7 @@ int main()
 		//----------------------------------------------------------------------------------
 		BeginDrawing();
 
-		ClearBackground(RAYWHITE);
+		ClearBackground(BLANK);
 
 		switch (currentScreen)
 		{
@@ -143,16 +131,6 @@ int main()
 			TicTacScreen->SetupScreen();
 
 
-			for (int i = 0; i < 9; i++)
-			{
-				if (GameData.IsMarked[i] == true) {
-
-					if (GameData.WhoMarked[i] == Player2) DrawTexture(textureX, static_cast<int>(ButtonsPosition[i].x - 100), static_cast<int>(ButtonsPosition[i].y - 100), WHITE);
-					else if (GameData.WhoMarked[i] == Player1) DrawTexture(textureO, static_cast<int>(ButtonsPosition[i].x - 100), static_cast<int>(ButtonsPosition[i].y - 100), WHITE);
-				}
-			}
-
-			//DrawTexture(TextureX, )
 			if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) MousePosition = GetMousePosition();
 			DrawText(TextFormat("%2f X | %2f Y", MousePosition.x, MousePosition.y), 20, 80, 40, LineColor);
 

@@ -1,14 +1,18 @@
 #pragma once
 
+#include <array>
+
 #include <UI/Public/BaseUI.h>
 
-class GameScreen : public BaseUI
+#include "raylib.h"
+#include "Core/Public/Game.h"
+
+
+class GameScreen : public BaseUI, Core
 {
 
 public:
-	explicit GameScreen(UIManager *UIManager)
-		: BaseUI(UIManager) {
-	}
+	explicit GameScreen(UIManager *UIManager): BaseUI(UIManager){}
 
 	void OnUpdate(float DeltaTime) override;
 
@@ -20,12 +24,14 @@ public:
 
 	void OnDestroy() override;
 
-private:
-
 	// Config - Default values
 	const Color LineColor = WHITE;
-	const int LineTickness = 10;
-	const float BorderOffset = 300.f;
-	const float LineOffset = 100.f;
+	const float LineThickness = 10;
+
+
+private:
+
+
+
 
 };

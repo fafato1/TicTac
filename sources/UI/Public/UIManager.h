@@ -10,7 +10,7 @@ public:
 
 	void OnUpdate(float DeltaTime);
 
-	void Destroy(const BaseUI* BaseUIRef);
+	void Destroy(BaseUI* BaseUIRef);
 
 	template<typename T>
 	T* Create()
@@ -23,4 +23,5 @@ public:
 
 private:
 	std::vector<std::shared_ptr<BaseUI>> UIList;
+
 };
